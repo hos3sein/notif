@@ -2,6 +2,7 @@ const fetch = require("node-fetch");
 
 exports.pushyRequest = async (deviceToken,notif) => {
   const url = `https://api.pushy.me/push?api_key=${process.env.PUSHY_API_KEY}`;
+//   console.log(notif)
   const notifiEn = {
     to: `${deviceToken}`,
     data: {
@@ -17,7 +18,7 @@ exports.pushyRequest = async (deviceToken,notif) => {
   };
  const body=notifiEn
   
-  console.log("bbb",body);
+ console.log("bbb>>>>>>",body);
 
   try {
     const rawResponse = await fetch(url, {
@@ -30,6 +31,7 @@ exports.pushyRequest = async (deviceToken,notif) => {
     });
     const response = await rawResponse.json();
     if (response.success) {
+    //   console.log('' , respone)
       console.log('Push sent successfully! (ID: ' + deviceToken + ')');
     } else {
       console.log("error to send to ", deviceToken,response.code,response.error);

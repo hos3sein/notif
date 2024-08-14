@@ -10,17 +10,17 @@ exports.initStaticNotifApproveService=[
         number:1,
         section:"admin"  
     },
-    {
-        serviceName:"Approve",
-        cnTitle:"cntitle2",
-        enTitle:"entitle2",
-        cnMassage:"cnmassage2",
-        enMassage:"enmassage2",
-        cnDescription:"批准滚动请求后",
-        enDescription:"After aregisteringpprove a new role in the application",
-        number:2,
-        section:"admin"   
-    },
+    // {
+    //     serviceName:"Approve",
+    //     cnTitle:"cntitle2",
+    //     enTitle:"entitle2",
+    //     cnMassage:"cnmassage2",
+    //     enMassage:"enmassage2",
+    //     cnDescription:"批准滚动请求后",
+    //     enDescription:"After after registering approve a new role in the application",
+    //     number:2,
+    //     section:"admin"   
+    // },
     {
         serviceName:"Approve",
         cnTitle:"cntitle3",
@@ -28,7 +28,7 @@ exports.initStaticNotifApproveService=[
         cnMassage:"cnmassage3",
         enMassage:"enmassage3",
         cnDescription:"拒绝卷取请求后",
-        enDescription:"After reject approve a new role in the application",
+        enDescription : "Rejection of a user after registration",
         number:3,
         section:"admin"   
     },
@@ -39,7 +39,7 @@ exports.initStaticNotifApproveService=[
         cnMassage:"cnmassage4",
         enMassage:"enmassage4",
         cnDescription:"注册商务 VIP 请求后",
-        enDescription:"After commerce change to vip succefully",
+        enDescription:"Addition of the VIP option to commerce",
         number:4,
         section:"admin"   
     },
@@ -72,7 +72,7 @@ exports.initStaticNotifApproveService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"经line Maker与商务部批准后",
-        enDescription:"After line Maker approve with commerce ",
+        enDescription:"Approval of the Line Maker request by commerce",
         number:7,
         section:"admin"  
     },
@@ -83,7 +83,7 @@ exports.initStaticNotifApproveService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"生产线制造商拒绝商务后",
-        enDescription:"After line Maker reject with commerce ",
+        enDescription:"Rejection of the Line Maker request by commercce ",
         number:8,
         section:"admin"  
     },
@@ -110,7 +110,7 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage1",
         enMassage:"enmassage1",
         cnDescription:"在有人对订单出价后",
-        enDescription:"When sending a quote to a seller",
+        enDescription:"Sending a price offer to the seller",  //its
         number:1,
         section:"order"  
     },
@@ -121,7 +121,7 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage1",
         enMassage:"enmassage1",
         cnDescription:"在一些机构接受出价后",
-        enDescription:"When a person's bid is approved by the seller",
+        enDescription:"Approval of the price offer by the seller",
         number:2,
         section:"order"  
     },
@@ -132,7 +132,7 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage3",
         enMassage:"enmassage3",
         cnDescription:"在一些机构出价更好并拒绝出价之后",
-        enDescription:"When a better quote is received",
+        enDescription:"Receiving a better price offer",
         number:3,
         section:"order"   
     },
@@ -143,7 +143,7 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage4",
         enMassage:"enmassage4",
         cnDescription:"当订单成功交付时",
-        enDescription:"When successfully delivering an order",
+        enDescription:"Successful delivery of the order",
         number:4,
         section:"order"   
     },
@@ -165,8 +165,8 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"在购买订单中，卖方应表示货物已准备好发送",
-        enDescription:"In buy order at the time when the seller should say that the cargo is ready to be sent",
-        number:6,
+        enDescription:"Seller declares readiness to ship the goods",
+        number : 6,
         section:"order"  
     },
     // {
@@ -266,7 +266,7 @@ exports.initCommerceSecion=[
         cnDescription:"当买家想要初始化检查员请求时",
         enDescription:"Order Inspection Request by Buyer",
         number:13,
-        section:"order"  
+        section:"order"
     },
     {
         serviceName:"Commerce",
@@ -275,7 +275,7 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当检验员拒绝货物时",
-        enDescription:"Inspector's approval after rejecting the order",
+        enDescription:"Rejection of the inspection request by ASH&MORE APP",
         number:14,
         section:"order"  
     },
@@ -297,7 +297,7 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当订单取消时",
-        enDescription:"Cancellation of the order with payment of a penalty",
+        enDescription:"Payment of a penalty due to order cancellation",
         number:16,
         section:"order"  
     },
@@ -319,12 +319,12 @@ exports.initCommerceSecion=[
         cnMassage:"cnmassage6",
         enMassage:"The seller cancel offer bid you can cancel this order without penalty",
         cnDescription:"当卖方取消买入订单中的出价时",
-        enDescription:"Cancellation of the bid by the buyer before approve the bid",
+        enDescription:"Cancellation of the bid by the buyer before approve the bid" ,
         number:18,
         section:"order"
     }
-    
 ]
+
 exports.initStaticNotifLineMakerService=[
     {
         serviceName:"LineMaker",
@@ -349,6 +349,7 @@ exports.initStaticNotifLineMakerService=[
         section:"order"  
     },
 ]
+
 exports.initStaticTransportService=[
     {
         serviceName:"Transport",
@@ -357,7 +358,7 @@ exports.initStaticTransportService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当运输公司竞标商业报价时",
-        enDescription:"The transportation company's price proposal to the cargo owner",
+        enDescription:"Sending a price offer to the cargo owner by the transportation company",
         number:1,
         section:"order"  
     },
@@ -379,7 +380,7 @@ exports.initStaticTransportService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当运输公司向商业报价投标并拒绝时",
-        enDescription:"Rction of the proposed price by the cargo owner",
+        enDescription:"Rejection of the price quote by the order owner",
         number:3,
         section:"order" 
     },
@@ -390,7 +391,7 @@ exports.initStaticTransportService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"改变交通法规",
-        enDescription:"Transport comapny trucks start nav to origin",
+        enDescription:"Moving towards the origin by the transportation company",
         number:4,
         section:"order" 
     },
@@ -401,7 +402,7 @@ exports.initStaticTransportService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"改变交通法规",
-        enDescription:"Transport comapny trucks arrived to origin",
+        enDescription:"Arrival of the transportation company at the origin",
         number:7,
         section:"order" 
     },
@@ -412,7 +413,7 @@ exports.initStaticTransportService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"改变交通法规",
-        enDescription:"Transport comapny trucks start nav to destenation",
+        enDescription:"Moving towards the destination by the transportation company",
         number:8,
         section:"order" 
     },
@@ -423,7 +424,7 @@ exports.initStaticTransportService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当cattgo交付成功时",
-        enDescription:"when cattgo deliver successfully",
+        enDescription:"Successful delivery of the cargo to the destination",
         number:5,
         section:"order" 
     },
@@ -434,8 +435,19 @@ exports.initStaticTransportService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当取消或物流时",
-        enDescription:"no logistics request by the order owner",
+        enDescription:"Selection of New Logistics by the orderer",
         number:6,
+        section:"order" 
+    },
+    {
+        serviceName:"Transport",
+        cnTitle:"cntitle6",
+        enTitle:"Selection of New Logistics by the admin",
+        cnMassage:"cnmassage6",
+        enMassage:"enmassage6",
+        cnDescription:"当取消或物流时",
+        enDescription:"Selection of New Logistics by the admin",
+        number:10,
         section:"order" 
     },
 
@@ -515,7 +527,7 @@ exports.initStaticTruckService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当司机开始导航到目的地时",
-        enDescription:"when driver startnav to destination",
+        enDescription:"Tracking towards the destination by the driver",
         number:7,
         section:"order" 
     },
@@ -526,7 +538,7 @@ exports.initStaticTruckService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当司机交付货物时",
-        enDescription:"Delivery of baggage by the driver",
+        enDescription:"Delivery of the goods by the driver to the destination",
         number:8,
         section:"order" 
     },
@@ -537,7 +549,7 @@ exports.initStaticTruckService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"司机送达订单后，请求者必须付款",
-        enDescription:"Settling the payment of the order by the cargo owner",
+        enDescription:"Order settlement by the buyer",
         number:9,
         section:"order" 
     },
@@ -548,7 +560,7 @@ exports.initStaticTruckService=[
         cnMassage:"cnmassage6",
         enMassage:"enmassage6",
         cnDescription:"当订单取消时",
-        enDescription:"Cancellation of the order by the driver ",
+        enDescription:"Cancellation of the order by the driver",
         number:10,
         section:"order" 
     },
@@ -559,7 +571,7 @@ exports.initStaticTruckService=[
         cnMassage:"cnmassage11",
         enMassage:"enmassage6",
         cnDescription:"当订单取消时",
-        enDescription:"Cancellation bid of driver for order ",
+        enDescription:"Rejection of the price offer by the truck driver",
         number:11,
         section:"order" 
     }

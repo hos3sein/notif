@@ -116,9 +116,11 @@ exports.getall = asyncHandler(async (req, res, next) => {
     data:all,
   });
 });
+
+
 exports.pushNotif= asyncHandler(async (req, res, next) => {
   // console.log("ffffffff",req.body);
-   const {serviceName,number,userId}=req.body
+   const {serviceName , number , userId}=req.body
    console.log("req",req.body);
    const notifInfo=await StaticNotif.findOne({
     $and:[
@@ -136,8 +138,8 @@ exports.pushNotif= asyncHandler(async (req, res, next) => {
    })
  
 const deviceTokenArray =await getDeviceToken(userId)
-   
-console.log("notiffInfo",notifInfo);
+// console.log('device token>>>' , deviceTokenArray)
+console.log("notiffInfo>>>>",notifInfo);
 console.log("devicetkenArray",deviceTokenArray);
 
 if(!notifInfo){
@@ -147,11 +149,12 @@ if(!deviceTokenArray){
    return res.status(401).json({success:false,err:"deviceTokenNotFound"})
 }
 
-console.log(deviceTokenArray);
+// console.log(deviceTokenArray);
 
 deviceTokenArray.forEach( async(deviceToken) => {
-  console.log(deviceToken);
-  await pushyRequest(deviceToken,notifInfo)
+//   console.log(deviceToken);
+  const noti = await pushyRequest(deviceToken , notifInfo)
+  console.log('notifResault>>>>' , noti)
 });
  
  await refreshNotif()

@@ -3,6 +3,9 @@ const asyncHandler = require("../middleware/async");
 const Notification = require("../models/Notification");
 const { refresh,refreshNotif } = require("../utils/refresh");
 const { getUsers } = require("../utils/getDeviceToken");
+const {pushyRequest}=require("../utils/pushyRequest")
+const {getDeviceToken}=require("../utils/getDeviceToken")
+
 
 exports.createNotif = asyncHandler(async (req, res, next) => {
   const {title,message,notificationType,relation,recipient,sender}=req.body
@@ -86,6 +89,7 @@ exports.test = asyncHandler(async (req, res, next) => {
 
 exports.notifUser = asyncHandler(async (req, res, next) => {
   const {title,message,notificationType,type}=req.body
+  console.log('body....',req.body)
   const notification =[]
   const sender={
     _id:req.user._id,
@@ -96,23 +100,37 @@ exports.notifUser = asyncHandler(async (req, res, next) => {
    if(users.length==0){
     next(new ErrorResponse(404,"no user find !!"))
    }
-  users.forEach(async(users) => {
+  users.forEach(async(item) => {
     const notif={
-      title,
-      message,
-      notificationType,
-      recipient:users,
-      sender
+    enTitle:title ,
+    enMassage:message,
+    cnTitle:title,
+    cnMessage:message,
+    recipientId:item._id, 
+    // staticNotifId : notifInfo._id
+    //   ,
+    //   ,
+    //   recipient:users,
+    //   sender
     }
+    const deviceTokenArray =await getDeviceToken(item._id)
+    console.log(item._id , deviceTokenArray)
+    deviceTokenArray.forEach( async(deviceToken) => {
+      console.log('device tokens>>>>',deviceToken);
+      await pushyRequest(deviceToken , notif)
+    });
     notification.push(notif)
     await Notification.create(notif)
   });
+  console.log('<<<<<<<<<<<>>>>>>>>>',notification)
   await refreshNotif()
   res.status(201).json({
     success: true,
     notification
   });
 });
+
+
 
 exports.single = asyncHandler(async (req, res, next) => {
   const {title,message,notificationType}=req.body
