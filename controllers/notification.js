@@ -25,10 +25,11 @@ exports.createNotif = asyncHandler(async (req, res, next) => {
 });
 
 exports.allMe = asyncHandler(async (req, res, next) => {
+    console.log('entry>>>')
   const allme = await Notification.find({
     recipientId: req.user._id,
-  }).sort({ createdAt: "desc" });
-
+  }).sort({ createdAt: "desc" }).limit(20);
+  
   res.status(200).json({
     success: true,
     data: allme,
@@ -89,7 +90,7 @@ exports.test = asyncHandler(async (req, res, next) => {
 
 exports.notifUser = asyncHandler(async (req, res, next) => {
   const {title,message,notificationType,type}=req.body
-  console.log('body....',req.body)
+//   console.log('body....',req.body)
   const notification =[]
   const sender={
     _id:req.user._id,
@@ -113,6 +114,18 @@ exports.notifUser = asyncHandler(async (req, res, next) => {
     //   recipient:users,
     //   sender
     }
+    const notif2={
+    enTitle:title ,
+    enMessage:message,
+    cnTitle:title,
+    cnMessage:message,
+    recipientId:item._id, 
+    // staticNotifId : notifInfo._id
+    //   ,
+    //   ,
+    //   recipient:users,
+    //   sender
+    }
     const deviceTokenArray =await getDeviceToken(item._id)
     console.log(item._id , deviceTokenArray)
     deviceTokenArray.forEach( async(deviceToken) => {
@@ -120,10 +133,13 @@ exports.notifUser = asyncHandler(async (req, res, next) => {
       await pushyRequest(deviceToken , notif)
     });
     notification.push(notif)
-    await Notification.create(notif)
+    await Notification.create(notif2)
   });
-  console.log('<<<<<<<<<<<>>>>>>>>>',notification)
+//   console.log('<<<<<<<<<<<>>>>>>>>>',notification)
+    console.log('n1>>><<<>>>')
   await refreshNotif()
+  await refreshNotif()
+ 
   res.status(201).json({
     success: true,
     notification
