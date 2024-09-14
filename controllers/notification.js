@@ -1,11 +1,11 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const Notification = require("../models/Notification");
-const { refresh,refreshNotif } = require("../utils/refresh");
+const { refresh,refreshNotif , newLog } = require("../utils/refresh");
 const { getUsers } = require("../utils/getDeviceToken");
 const {pushyRequest}=require("../utils/pushyRequest")
 const {getDeviceToken}=require("../utils/getDeviceToken")
-
+const adminMessage = require("../models/adminMessage");
 
 exports.createNotif = asyncHandler(async (req, res, next) => {
   const {title,message,notificationType,relation,recipient,sender}=req.body
@@ -68,6 +68,8 @@ exports.all = asyncHandler(async (req, res, next) => {
     data: allme,
   });
 });
+
+
 exports.notifUser = asyncHandler(async (req, res, next) => {
   const allme = await Notification.find({
     recipientId:req.params.id
@@ -79,9 +81,9 @@ exports.notifUser = asyncHandler(async (req, res, next) => {
   });
 });
 
+
+
 exports.test = asyncHandler(async (req, res, next) => {
-
-
   res.status(200).json({
     success: true,
     data: "http worked !!!",
@@ -90,16 +92,34 @@ exports.test = asyncHandler(async (req, res, next) => {
 
 exports.notifUser = asyncHandler(async (req, res, next) => {
   const {title,message,notificationType,type}=req.body
-//   console.log('body....',req.body)
+  console.log('body....',req.body)
   const notification =[]
   const sender={
     _id:req.user._id,
     pictureProfile:req.user.pictureProfile,
     username:req.user.username
   }
+  let groups ;
+  if (type == 0){
+      groups = ""
+  }
+  if (type == 1){
+      groups = "commerces"
+  }
+  if (type == 2){
+      groups = "transport companies"
+  }
+  if (type == 3){
+      groups = "trucks"
+  }
+  if (type == 4){
+      groups = "linemakers"
+  }
+  
   const users=await getUsers(type)
-   if(users.length==0){
-    next(new ErrorResponse(404,"no user find !!"))
+//   console.log('users>>>' , users[0])
+   if(users.length == 0){
+    return next(new ErrorResponse(404,"no user find !!"))
    }
   users.forEach(async(item) => {
     const notif={
@@ -135,11 +155,33 @@ exports.notifUser = asyncHandler(async (req, res, next) => {
     notification.push(notif)
     await Notification.create(notif2)
   });
-//   console.log('<<<<<<<<<<<>>>>>>>>>',notification)
-    console.log('n1>>><<<>>>')
+  //   console.log('<<<<<<<<<<<>>>>>>>>>',notification)
+  console.log('n1>>><<<>>>')
   await refreshNotif()
   await refreshNotif()
- 
+  console.log(groups)
+  const Log = {
+    admin : {username :req.user.username , phone : req.user.phone , adminRole : req.user?.adminRole , group :  req.user?.group , firstName : req.user?.firstName , lastName : req.user?.lastName},
+    section : "notification",
+    part : "message to users",
+    success : true,
+    description : `${req.user.username}  has successfully message to all ${groups} with title ${title} and message : ${message}`,
+  }
+  await newLog(Log)
+   messageadmin = {
+      admin : {
+        username : req.user?.username,
+        phone : req.user?.phone,
+        group : req.user?.group,
+        adminRole : req.user?.adminRole,
+        firstName : req.user?.firstName , lastName : req.user?.lastName
+    },
+    enTitle:title,
+    enMessage: message,
+    recipientGroup : groups
+    }
+    await adminMessage.create(messageadmin)
+  console.log('test pass')
   res.status(201).json({
     success: true,
     notification
@@ -175,3 +217,23 @@ exports.single = asyncHandler(async (req, res, next) => {
     success: true,
   });
 });
+
+
+
+
+
+exports.getMessages = asyncHandler(async(req , res , next)=>{
+  adminMessage.find().then((resault)=>{
+    res.status(200).json({
+      success : true,
+      data : resault
+    })
+  }).catch((err)=>[
+    res.status(503).json(
+    {
+      success : false,
+      error : `${err}`
+    }
+    )
+  ])
+})

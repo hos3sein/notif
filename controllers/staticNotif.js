@@ -2,7 +2,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const StaticNotif=require("../models/StaticNotif")
 const Notification=require("../models/Notification")
-const {refreshNotif}=require("../utils/refresh")
+const {refreshNotif , newLog}=require("../utils/refresh")
 const {pushyRequest}=require("../utils/pushyRequest")
 const {getDeviceToken}=require("../utils/getDeviceToken")
 const {pushy}=require("../utils/pushy")
@@ -100,11 +100,25 @@ exports.createStaticNotif = asyncHandler(async (req, res, next) => {
     data:all
   });
 });
+
+
+
 exports.editStaticNotif=asyncHandler(async (req, res, next) => {
   const {cnTitle,enTitle,cnMassage,enMassage,cnDescription,enDescription}=req.body
+  const last = await StaticNotif.findById(req.params.id)
   await StaticNotif.findByIdAndUpdate(req.params.id,{
     cnTitle,enTitle,cnMassage,enMassage,cnDescription,enDescription
   })
+  
+    const Log = {
+    admin : {username :req.user.username , phone : req.user.phone , adminRole : req.user?.adminRole , group :  req.user?.group , firstName : req.user?.firstName , lastName : req.user?.lastName},
+    section : "notification",
+    part : "update notifications",
+    success : true,
+    description : `${req.user.username}  has successfully update notification ${last.enDescription} to title : ${enTitle} , message : ${enMessage} , description : ${enDescription}`,
+  }
+  await newLog(Log)
+  
   res.status(201).json({
     success: true,
   });

@@ -13,6 +13,7 @@ router.get("/read/:id", protect, C.read);
 router.get("/del", protect, C.del);
 router.get("/all", C.all);
 router.get("/tt/:id", C.notifUser);
+router.get("/getadminmessage", C.getMessages);
 
 router.post("/group",protect,C.notifUser);
 
